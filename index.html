@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+  <link rel="stylesheet" href="main.css">
+  <title>即时通讯</title>
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <div id="app" class="container">
+    <div class="sidebar">
+      <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+      <ul  class="topics">
+        <li v-for="(topic,index) in subscribedTopics" :key="topic.name" @click="activeTp = topic.name" :class="{activeTopic: activeTp==topic.name}"><span>{{topic.name}}</span></li>
+      </ul>
+      <button class="add-topic-btn" @click="addTopic()">ADD Topic</button>
+    </div>
+    <div class="main">
+      <div class="received-messages">
+        <!-- 接收的信息显示区域 -->
+        <div v-for="(topic,index) in subscribedTopics" :key="topic.name" class="messageContainer"
+          :class="{unshown:!(activeTp==topic.name)}">
+          <div v-for="bub in topic.bubs" class="bubContainer" :class=" (bub.ID == ID) ? 'right' : 'left'">
+            <div class="userID" :class=" (bub.ID == ID) ? 'right' : 'left'">{{bub.ID}}</div>
+            <div class="bub">{{bub.message}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="input-area">
+        <textarea v-model="messageInput" type="text" class="message-input" placeholder="请输入你要发送的消息..."></textarea>
+        <button class="send-btn" onclick="sendMessage()">发送</button>
+      </div>
+    </div>
+  </div>
+  <script src="./vue.js"></script>
+  <script src="main.js"></script>
+  <!-- <script src="sc"></script> -->
+  <script>
+
+
+  </script>
+</body>
+
+</html>
